@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+//
 public class filHantering {
     String fileName = "personer.txt";
 
