@@ -4,28 +4,50 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-//
-public class filHantering {
-    String fileName = "personer.txt";
 
-    File myFileObject;
+public class filHantering {
+    String textFileName = "text.txt";
+    String personFileName = "personer.txt";
+
+    File textFileObject;
+    File personFileObject;
+    FileWriter myWriter;
 
     // Constructor
     public filHantering() {
-        createFile();
+        textFileObject = new File(textFileName);
+        personFileObject = new File(personFileName);
         write2File();
-        readFromFile();
+        readFromTextFile();
+        readFromPersonFile();
     }
 
-    private void readFromFile() {
+    private void readFromTextFile() {
         try {
-            Scanner myFileScanner = new Scanner(myFileObject);
-            while(myFileScanner.hasNextLine()) {
-                System.out.println(myFileScanner.nextLine());
+            Scanner textFileScanner = new Scanner(textFileObject);
+            System.out.println("Innehållet i text.txt: ");
+            while (textFileScanner.hasNextLine()) {
+                System.out.println(textFileScanner.nextLine());
             }
+            textFileScanner.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("File could not be found!");
+            System.out.println("text.txt kunde inte hittas!");
+        }
+
+    }
+
+    private void readFromPersonFile() {
+        try {
+            Scanner personFileScanner = new Scanner(personFileObject);
+            System.out.println("Innehållet i personer.txt: ");
+            while (personFileScanner.hasNextLine()) {
+                System.out.println(personFileScanner.nextLine());
+            }
+            personFileScanner.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("personer.txt kunde inte hittas!");
         }
 
     }
@@ -33,24 +55,18 @@ public class filHantering {
     // Skriver i en fil
     private void write2File() {
         try {
-            FileWriter myWriter = new FileWriter(fileName, true);
-
+            myWriter = new FileWriter(textFileName, true);
             Scanner scan = new Scanner(System.in);
 
             System.out.println("Vad vill du skriva i filen?");
             String input = scan.nextLine();
-            myWriter.write(input);
+            myWriter.write(input + "\n");
 
             myWriter.close();
 
         } catch (IOException e) {
-            System.out.println("Kunde inte skriva");
+            System.out.println("Kunde inte skriva till text.txt!");
             e.printStackTrace();
         }
-    }
-
-    // Skapar en fil
-    private void createFile() {
-        myFileObject = new File(fileName);
     }
 }
